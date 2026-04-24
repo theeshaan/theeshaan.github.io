@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- EDIT: Change this to your post title -->
+<title>Thinking · Eshaan Pareek</title>
+<link rel="stylesheet" href="../../shared.css">
+<style>
+
+  .page-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 140px 40px 100px;
+  }
+
+  /* ── Post header ── */
+  .post-header {
+    margin-bottom: 60px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 36px;
+    transition: color 0.2s;
+    cursor: none;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+  .back-link:hover { color: var(--accent); }
+  .back-link svg { transition: transform 0.2s; }
+  .back-link:hover svg { transform: translateX(-3px); }
+
+  .post-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .post-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 5vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.35s;
+  }
+  .post-header h1 em { font-style: italic; color: var(--accent); }
+
+  .post-byline {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+  .byline-dot {
+    width: 3px; height: 3px;
+    background: var(--border);
+    border-radius: 50%;
+  }
+
+  /* ── Body typography ── */
+  .post-body {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.6s;
+  }
+
+  .post-body p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #ccc8c0;
+    margin-bottom: 24px;
+  }
+
+  .post-body h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin: 52px 0 16px;
+    padding-top: 8px;
+  }
+  .post-body h2::before {
+    content: attr(data-num) ' ';
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+
+  .post-body h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 36px 0 12px;
+  }
+
+  .post-body strong { color: var(--text); font-weight: 600; }
+
+  .post-body a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(200,169,110,0.4);
+    transition: border-color 0.2s;
+    cursor: none;
+  }
+  .post-body a:hover { border-color: var(--accent); }
+
+  /* Code blocks */
+  .post-body pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    overflow-x: auto;
+    margin: 28px 0;
+    position: relative;
+  }
+  .post-body pre::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 10px; right: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .post-body code {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent2);
+    line-height: 1.7;
+  }
+  .post-body p code {
+    background: rgba(126,184,201,0.08);
+    border: 1px solid rgba(126,184,201,0.15);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  /* Blockquote */
+  .post-body blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 28px 0;
+    padding: 16px 0 16px 28px;
+  }
+  .post-body blockquote p {
+    color: var(--text);
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Callout box */
+  .callout {
+    background: rgba(200,169,110,0.06);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 28px 0;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  /* Horizontal rule */
+  .post-body hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  /* Lists */
+  .post-body ul, .post-body ol {
+    padding-left: 20px;
+    margin-bottom: 24px;
+  }
+  .post-body li {
+    font-size: 15px;
+    color: #ccc8c0;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .post-body ul li::marker { color: var(--accent); }
+  .post-body ol li::marker {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  /* ── Post footer ── */
+  .post-footer {
+    margin-top: 72px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .post-footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .back-to-blog {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(200,169,110,0.3);
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    cursor: none;
+    white-space: nowrap;
+  }
+  .back-to-blog:hover {
+    background: rgba(200,169,110,0.08);
+    border-color: var(--accent);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .page-wrap { padding: 120px 20px 80px; }
+    .post-footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">EP.</a>
+  <ul class="nav-links">
+    <li><a href="../../index.html#experience">Work</a></li>
+    <li><a href="../../index.html#education">Education</a></li>
+    <li><a href="../../index.html#awards">Awards</a></li>
+    <li><a href="../index.html" class="active">Blog</a></li>
+    <li><a href="../../index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <article>
+    <header class="post-header">
+      <a href="../index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All posts
+      </a>
+
+      <!-- EDIT: Change the tag -->
+      <span class="post-tag">Misc</span>
+
+      <!-- EDIT: Change the title. Wrap any word in <em> for italic gold styling -->
+      <h1>An Ode to<br><em>Thinking</em></h1>
+
+      <!-- EDIT: Change date and read time -->
+      <div class="post-byline">
+        <span>Eshaan Pareek</span>
+        <span class="byline-dot"></span>
+        <span>24 April 2026</span>
+        <span class="byline-dot"></span>
+        <span>4 min read</span>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════
+         EDIT: Your post content goes below here.
+         Available elements:
+           <p>         — paragraph
+           <h2>        — section heading (add data-num="01" etc.)
+           <h3>        — sub-heading
+           <blockquote>— pull quote
+           <pre data-lang="c">  <code> — code block
+           <p><code>   — inline code
+           <ul>/<ol>   — lists
+           <hr>        — horizontal divider
+           <div class="callout"> — callout box
+    ═══════════════════════════════════════════ -->
+    <div class="post-body">
+
+      <p>
+        I feel we are not "thinking" enough nowadays. At least I haven't been.
+      </p>
+
+      <h2 data-num="01">But aren't we productive?</h2>
+
+      <p>
+        With the advent of LLMs, we have become hyper-productive. Most of us are able to finish week-long tasks
+        in a day with a sizable token budget. I have been getting assignments that used to be a Masters project
+        five years ago (I complained about it for the first fourteen days, then got it done in 3 hours with codex
+        on the last day).
+        <br><br>
+      </p>
+
+      <p>
+        When we're getting so much work done on a daily basis, it seems but natural to think everything's alright
+        and get lost in the flow. But I want you to take a moment and think, when was the last time you thought deeply
+        about a problem? The sort of deep where you walk around in silence for half an hour chewing at the problem, 
+        with no screen in your hand. If my hypothesis is correct, at least not in the past month.
+      </p>
+
+      <h2 data-num="02">The illusion of the extended brain</h2>
+
+      <p>
+        This is my first article ever, so I decided to give it a good name. I came up with a few, but rejected all of them.
+        Realised AI could give me a list of 15 relevant names in 30 seconds, easy. Then I recalled
+        what it is that I wanted to write about.
+      </p>
+
+      <p>
+        I had given a mere 2 minutes to thinking. After 4 failed names I had a browser tab open.
+      </p>
+
+      <p>
+        This is something I have been observing lately and what motivated me to write this article - we are becoming dependent on tools
+        like AI to do our thinking for us. The moment a task demands us to think beyond our comfort zone, we are tempted to offload it
+        to AI. While this gets the task done, and probably done "better" than we could do ourselves, I feel it is depriving us of one of the 
+        most dopamine-producing activities we humans can do - <i>solving a problem via thinking hard</i>.
+      </p>
+
+      <p>
+        If you prioritize time and getting tasks done over emotions and dopamine, I don't blame you for not agreeing with my views so far.
+        However, I am convinved that even if your goal is to be the most productive person at your workplace in the next 5 years, you should
+        care more about developing your thinking than becoming efficient at <i>outsourcing your thinking to AI</i>. The reason I say this is
+        that, given the rate at which we are progressing, pretty soon the limit on what we can produce will be determined by the limits of
+        our thought - the doing will be taken care of by tools.
+      </p>
+
+      <p>
+        I feel every task that we solve with AI on the front seat, no matter how neatly or timely done, is a potential loss. Menial tasks?
+        definitely outsource. But AI should not deserve to make any ingenious decisions on your behalf. Had one done that task on their own,
+        it would have costed them:
+      </p>
+        <ul>
+          <li>Time</li>
+          <li>Effort</li>
+          <li>Loss of comfort</li>
+          <li>Failures</li>
+          <li>Frustration</li>
+          <li>and many other negative feelings</li>
+        </ul>
+      <p>
+        And we know this. That is why we offload to AI. But what we often do not think about is the flip side, what <i>could happen</i> if we
+        decided to tread into the uncomfortable, burn midnight oil figuring out every last detail, and see ourselves make it till the end.
+        No AI, just your I.
+      </p>
+        <ul>
+          <li>Satisfaction and Joy</li>
+          <li>Deep understanding</li>
+          <li>New skills</li>
+          <li>Self-confidence</li>
+          <li><i>No guilt whatsoever</i></li>
+        </ul>
+      
+      <p>
+        That said, it is very important to decide for which tasks the positives outweigh the negatives. If you need to get the project working
+        before the presentation tomorrow, it is no time to be thinking about satisfction or fulfillment! Similarly if you want to build something
+        without having learn some burdensome skills as pre-requisites, you might want to get AI to handle the un-interesting parts.
+      </p>
+
+      <p>
+        AI tells me I'm putting forth very strong opinions without justifying anything I say and this will make people mad. AI is usually right.
+        So I'll give an example from my recent life.
+      </p>
+      
+      <p>
+        I started my semester with a fresh problem statement for my BTech Project. It was my first
+        stint at academic research, and I was excited to do a good job. However the 20,000-line SVF codebase has a way of frustrating anyone
+        brave enough to try to understand what's happening. After a week of trying, I moved to AI. Immediately things began to flow; tasks began
+        to get ticked off instead of piling. It felt great - how progress feels.
+      </p>
+
+      <p>
+        But as time progressed, a feeling of emptimess began to grow. I could no longer force a smile when my guide complimented my work during
+        weekly progress meets. And the real problem was when users of my work found issues that I had no explanation for, or idea how to fix.
+      </p>
+
+      <p>
+        So when it came to my second problem statement, I firmly decided that I would not offload thinking work to an LLM. This one required
+        an understanding of LLVM IR and optimization passes, which was again a steep learning curve. It was painful. Not rosy to watch. I walked
+        around for hours in the corridors of my department thinking how to cover a particular case, or why a certain part was not working. Finally
+        when I had all the details sketched out, only then did I use AI to get the coding and testing done. It worked. I can still vividly recall
+        the moment that evening when my code successfully ran - that is how happpy I felt. I had had to request to cancel 2 weekly meetings due to
+        no <i>tangible</i> progress. But I could finally smile a very wide smile when my guide told me I had done a fantastic job! What's more, I
+        knew to the tiniest detail what was going on in the code, so I could confidently give guarantees on what could and what would not go wrong.
+      </p>
+
+      <h2 data-num="03">So what's the solution?</h2>
+
+      <p>
+        Based on what I said so far, you might (understandably) believe that I am strongly against the use of AI. However that is far from the truth;
+        that would be like telling factories not to use machines. What we need to take care of is to sharpen our ability of <b>thinking deeply</b>.
+        The process I have started following for my tasks has been quite rewarding, I encourage you to try it at least for a week, after adapting it
+        to what feels good to you. When faced with a problem/task, I follow these steps:
+        <ol>
+          <li>Decide whether the task is worth the time and effort that would go in thinking it through. If you are short on time, or the subject is
+            not something you care to be good at, the answer is probably no. This evaluation won't always be easy; the best way is to go with "yes"
+            if unsure.
+          </li>
+          <li>If your answer is yes: <i>think, think,</i> and <i>think</i> until the problem is crystal clear. Often the perception of a problem being too hard
+            is what makes us give up on trying it ourselves, but once you think it through, it isn't really that hard.</li>
+          <li>Think harder to come up with a solution. I know, easier said than done. This is probably the phase when you will be most tempted to give
+            up and give in to AI. But trust me, the feeling when you finally solve it yourself will shadow all the pain the process gave. <i>The
+            best views require the hardest climbs</i>.
+          </li>
+        </ol>
+        It is completely fine to give in during any of these steps, don't blame yourself too hard if you do. Not all tasks need to be won over. The goal is to
+        <b>increasingly</b> hone your ability to think critically, one task at a time.
+      </p>
+
+      <h2 data-num="04">Concluding remarks</h2>
+      
+      <p>
+        I am far from perfect myself, in fact quite far. Through this article I do not mean to "educate" anyone on how to think more often. I merely wish
+        to sensitize anyone who is harming their ability to think without realising it.
+      </p>
+
+      <p>
+        If this article interested you, do check out the book "Deep Work" by Cal Newport
+        (it's <a href="https://cpcglobal.org/publications/Deep%20Work.pdf">available</a> for free!).
+      </p>
+
+      <p>
+        As mentioned before, this is my first article. I'm delighted and pleasantly surprised that you made it to the end. I'd love to hear your thoughts
+        on the topic or any feedback you might have! (bricks and bouquets equally welcome)
+      </p>
+      
+
+    </div>
+    <!-- ═══ END POST CONTENT ═══ -->
+
+    <footer class="post-footer">
+      <div class="post-footer-left">
+        Authored by Eshaan Pareek<br>
+        <!-- IIT Bombay · PLATO Lab -->
+      </div>
+      <a href="../index.html" class="back-to-blog">← Back to Blog</a>
+    </footer>
+  </article>
+
+</div>
+
+<footer>
+  <span>Eshaan Pareek · IIT Bombay CSE '26</span>
+  <span>Hyderabad, India</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 4 + 'px';
+    cursor.style.top  = my - 4 + 'px';
+  });
+  (function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 16 + 'px';
+    ring.style.top  = ry - 16 + 'px';
+    requestAnimationFrame(animateRing);
+  })();
+</script>
+</body>
+</html>

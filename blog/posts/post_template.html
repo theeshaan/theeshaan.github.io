@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- EDIT: Change this to your post title -->
+<title>Post Title · Eshaan Pareek</title>
+<link rel="stylesheet" href="../../shared.css">
+<style>
+
+  .page-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 140px 40px 100px;
+  }
+
+  /* ── Post header ── */
+  .post-header {
+    margin-bottom: 60px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 36px;
+    transition: color 0.2s;
+    cursor: none;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+  .back-link:hover { color: var(--accent); }
+  .back-link svg { transition: transform 0.2s; }
+  .back-link:hover svg { transform: translateX(-3px); }
+
+  .post-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .post-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 5vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.35s;
+  }
+  .post-header h1 em { font-style: italic; color: var(--accent); }
+
+  .post-byline {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+  .byline-dot {
+    width: 3px; height: 3px;
+    background: var(--border);
+    border-radius: 50%;
+  }
+
+  /* ── Body typography ── */
+  .post-body {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.6s;
+  }
+
+  .post-body p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #ccc8c0;
+    margin-bottom: 24px;
+  }
+
+  .post-body h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin: 52px 0 16px;
+    padding-top: 8px;
+  }
+  .post-body h2::before {
+    content: attr(data-num) ' ';
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+
+  .post-body h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 36px 0 12px;
+  }
+
+  .post-body strong { color: var(--text); font-weight: 600; }
+
+  .post-body a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(200,169,110,0.4);
+    transition: border-color 0.2s;
+    cursor: none;
+  }
+  .post-body a:hover { border-color: var(--accent); }
+
+  /* Code blocks */
+  .post-body pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    overflow-x: auto;
+    margin: 28px 0;
+    position: relative;
+  }
+  .post-body pre::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 10px; right: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .post-body code {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent2);
+    line-height: 1.7;
+  }
+  .post-body p code {
+    background: rgba(126,184,201,0.08);
+    border: 1px solid rgba(126,184,201,0.15);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  /* Blockquote */
+  .post-body blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 28px 0;
+    padding: 16px 0 16px 28px;
+  }
+  .post-body blockquote p {
+    color: var(--text);
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Callout box */
+  .callout {
+    background: rgba(200,169,110,0.06);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 28px 0;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  /* Horizontal rule */
+  .post-body hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  /* Lists */
+  .post-body ul, .post-body ol {
+    padding-left: 20px;
+    margin-bottom: 24px;
+  }
+  .post-body li {
+    font-size: 15px;
+    color: #ccc8c0;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .post-body ul li::marker { color: var(--accent); }
+  .post-body ol li::marker {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  /* ── Post footer ── */
+  .post-footer {
+    margin-top: 72px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .post-footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .back-to-blog {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(200,169,110,0.3);
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    cursor: none;
+    white-space: nowrap;
+  }
+  .back-to-blog:hover {
+    background: rgba(200,169,110,0.08);
+    border-color: var(--accent);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .page-wrap { padding: 120px 20px 80px; }
+    .post-footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">EP.</a>
+  <ul class="nav-links">
+    <li><a href="../../index.html#experience">Work</a></li>
+    <li><a href="../../index.html#education">Education</a></li>
+    <li><a href="../../index.html#awards">Awards</a></li>
+    <li><a href="../index.html" class="active">Blog</a></li>
+    <li><a href="../../index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <article>
+    <header class="post-header">
+      <a href="../index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All posts
+      </a>
+
+      <!-- EDIT: Change the tag -->
+      <span class="post-tag">Compilers</span>
+
+      <!-- EDIT: Change the title. Wrap any word in <em> for italic gold styling -->
+      <h1>Points-to Analysis in LLVM:<br><em>What SVF Gets Right</em></h1>
+
+      <!-- EDIT: Change date and read time -->
+      <div class="post-byline">
+        <span>Eshaan Pareek</span>
+        <span class="byline-dot"></span>
+        <span>April 2026</span>
+        <span class="byline-dot"></span>
+        <span>8 min read</span>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════
+         EDIT: Your post content goes below here.
+         Available elements:
+           <p>         — paragraph
+           <h2>        — section heading (add data-num="01" etc.)
+           <h3>        — sub-heading
+           <blockquote>— pull quote
+           <pre data-lang="c">  <code> — code block
+           <p><code>   — inline code
+           <ul>/<ol>   — lists
+           <hr>        — horizontal divider
+           <div class="callout"> — callout box
+    ═══════════════════════════════════════════ -->
+    <div class="post-body">
+
+      <p>
+        Static analysis is one of those fields where the gap between theory and practice is enormous.
+        You can prove beautiful things about pointer semantics on paper, and then watch a real compiler
+        choke on a codebase with ten thousand indirect calls. This post is about that gap — specifically
+        as I encountered it while building a points-to validator for LLVM at the PLATO lab.
+      </p>
+
+      <h2 data-num="01">What is Points-to Analysis?</h2>
+
+      <p>
+        At its core, points-to analysis asks a simple question: <strong>at this program point, what memory
+        locations might this pointer refer to?</strong> The answer lets a compiler eliminate redundant loads,
+        prove memory safety, devirtualize indirect calls, and a dozen other high-value transformations.
+      </p>
+
+      <blockquote>
+        <p>The hardest part isn't computing the points-to sets. It's deciding what precision you can afford.</p>
+      </blockquote>
+
+      <p>
+        The classic taxonomy splits analyses along two axes: <em>flow sensitivity</em> (does the analysis
+        track program order?) and <em>context sensitivity</em> (does it distinguish different call sites of
+        the same function?). A flow-insensitive, context-insensitive analysis is fast but coarse.
+        A fully flow- and context-sensitive analysis is precise but combinatorially explosive.
+      </p>
+
+      <h2 data-num="02">Where SVF Fits</h2>
+
+      <p>
+        <a href="https://github.com/SVF-tools/SVF" target="_blank">SVF</a> is a framework for static
+        value-flow analysis built on top of LLVM IR. It implements Andersen-style inclusion-based
+        points-to analysis, which sits in the middle of the precision-performance tradeoff.
+      </p>
+
+      <pre data-lang="llvm"><code>; A simple store through a pointer — what does %p point to?
+%p = alloca i32*, align 8
+%x = alloca i32, align 4
+store i32* %x, i32** %p, align 8
+%loaded = load i32*, i32** %p, align 8</code></pre>
+
+      <p>
+        For this snippet, Andersen's algorithm would correctly compute that <code>%loaded</code> points to
+        <code>%x</code>. The inclusion constraint <code>pts(%p) ⊇ {%x}</code> propagates through the
+        load to give <code>pts(%loaded) = pts(%p)</code>.
+      </p>
+
+      <h3>The cycle problem</h3>
+
+      <p>
+        Where SVF — and Andersen analyses generally — struggle is with strong updates and recursive data
+        structures. When pointers form cycles in the constraint graph, the analysis can produce
+        spuriously large points-to sets that collapse all heap objects of the same type into one.
+      </p>
+
+      <div class="callout">
+        <div class="callout-label">⚡ Key Insight</div>
+        Cycle detection (Offline Variable Substitution / HVN / HRU) is what separates fast SVF runs
+        from slow ones. If your analysis is taking hours, look at the SCC structure of your constraint graph first.
+      </div>
+
+      <h2 data-num="03">Building a Validator</h2>
+
+      <p>
+        The validator I built at PLATO works by running SVF on a compiled LLVM module and then
+        independently checking a subset of its conclusions against a reference dynamic analysis.
+        The dynamic trace provides ground truth: if a pointer <em>actually</em> points to a location
+        at runtime, the static analysis must include that location in the points-to set (soundness).
+      </p>
+
+      <ul>
+        <li>Instrument the LLVM IR with shadow memory tracking at every load/store</li>
+        <li>Run the instrumented binary on a representative test suite</li>
+        <li>Diff the dynamic points-to sets against SVF's static sets</li>
+        <li>Flag any dynamic pointer target absent from the static set as a soundness violation</li>
+      </ul>
+
+      <p>
+        In practice, most "violations" turned out to be instrumentation artifacts — particularly around
+        <code>memcpy</code> and <code>va_arg</code> intrinsics that SVF models conservatively.
+        But a handful were genuine bugs in SVF's handling of certain GEP (GetElementPtr) patterns.
+      </p>
+
+      <hr>
+
+      <p>
+        I'll write a follow-up post with the actual numbers once the work is published. If you're
+        working on something similar, feel free to reach out — I'd love to compare notes.
+      </p>
+
+    </div>
+    <!-- ═══ END POST CONTENT ═══ -->
+
+    <footer class="post-footer">
+      <div class="post-footer-left">
+        Written by Eshaan Pareek<br>
+        IIT Bombay · PLATO Lab
+      </div>
+      <a href="../index.html" class="back-to-blog">← Back to Blog</a>
+    </footer>
+  </article>
+
+</div>
+
+<footer>
+  <span>Eshaan Pareek · IIT Bombay CSE '26</span>
+  <span>Hyderabad, India</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 4 + 'px';
+    cursor.style.top  = my - 4 + 'px';
+  });
+  (function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 16 + 'px';
+    ring.style.top  = ry - 16 + 'px';
+    requestAnimationFrame(animateRing);
+  })();
+</script>
+</body>
+</html>
