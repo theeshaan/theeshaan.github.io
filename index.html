@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- EP{d0nt_v3ntur3_wh3r3_y0ur3_n0t_supp0s3d_t0_da15e4b1c913b11d3f8084f5}  -->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eshaan Pareek</title>
@@ -642,10 +644,10 @@
   <div class="orb orb-2"></div>
 
   <div class="hero-left">
-    <div class="tag">— BTech CSE '26 · IIT Bombay</div>
+    <div class="tag">—  Samsung Research · IIT Bombay CSE</div>
     <h1>Eshaan<br><em>Pareek</em></h1>
     <p class="hero-desc">
-      Final year CS student at IIT Bombay, passionate about <strong>Compilers</strong> and <strong>Operating Systems</strong>. Research intern at Samsung Korea (PPO). I love solving hard problems.
+      Compilers Research Engineer at Samsung Research Seoul. Currently my interests lie in <strong>Compilers</strong> and <strong>Network/Web Security</strong>. I love music and relaxed runs.
     </p>
     <div class="hero-links">
       <a href="https://github.com/theeshaan" target="_blank" class="icon-btn" title="GitHub">
@@ -695,15 +697,29 @@
 
   <div class="exp-item reveal">
       <div>
-        <div class="exp-role">Undergraduate Researcher</div>
-        <div class="exp-org">PLATO Lab, IIT Bombay</div>
-        <div class="exp-desc">Conducting research in Program Analysis and Compilers · SVF (Static Value-Flow Analysis) • Points-to validator for LLVM</div>
+        <div class="exp-role">Compiler Engineer</div>
+        <div class="exp-org">Samsung Research Korea</div>
+        <div class="exp-desc">LLVM optimization for the Tizen OS Toolchain</div>
       </div>
       <div class="exp-meta">
-        Jan 2026 – Present<br>
-        IIT Bombay
+        Sep 2026 – Present<br>
+        Seoul, South Korea
       </div>
+  </div>
+
+  <div class="exp-list">
+    <div class="exp-item reveal">
+        <div>
+          <div class="exp-role">Undergraduate Researcher</div>
+          <div class="exp-org">PLATO Lab, IIT Bombay</div>
+          <div class="exp-desc">Conducting research in Program Analysis and Compilers · SVF (Static Value-Flow Analysis) • Points-to validator for LLVM</div>
+        </div>
+        <div class="exp-meta">
+          Jan 2026 – May 2026<br>
+          IIT Bombay
+        </div>
     </div>
+  </div>
 
   <div class="exp-list">
     <div class="exp-item reveal">
@@ -875,12 +891,12 @@
 <div class="contact-section" id="contact">
   <div class="section-num reveal" style="margin-bottom: 16px;">06 — Let's Connect</div>
   <h2 class="reveal" style="margin-bottom: 16px;">Send me a puzzle.</h2>
-  <p class="contact-sub reveal">Or just say hi. I'm open to research collaborations and interesting opportunities.</p>
+  <p class="contact-sub reveal">Or just say hi. I'm open to interesting conversations!</p>
   <a href="mailto:eshaanpareek@gmail.com" class="email-link reveal">eshaanpareek@gmail.com</a>
 
-  <div class="puzzle reveal">
+  <!-- <div class="puzzle reveal">
     <span>⚡</span> Currently open to: Student Intern roles
-  </div>
+  </div> -->
 </div>
 
 <footer>
@@ -922,6 +938,26 @@
   document.querySelectorAll('.reveal').forEach((el, i) => {
     observer.observe(el);
   });
+</script>
+<script>
+(function(){
+  var p=null,buf='',kk=[],K=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  function L(){return p||(p=new Promise(function(ok,no){var l=document.createElement('link');l.rel='stylesheet';l.href='hack/hack.css';document.head.appendChild(l);var s=document.createElement('script');s.src='hack/hack.js';s.onload=ok;s.onerror=no;document.head.appendChild(s);}));}
+  function go(ask){var b=document.body;if(b.classList.contains('ep-hack'))return;L().then(function(){b.classList.add('ep-glitch');setTimeout(function(){b.classList.remove('ep-glitch');EPHack.enter(ask);},1000);});}
+  var logo=document.querySelector('.nav-logo');
+  if(logo)logo.addEventListener('dblclick',function(e){e.preventDefault();go(true);});
+  var chip=[].find.call(document.querySelectorAll('.skill-chip'),function(c){return c.textContent.trim()==='Network/Web Security';});  if(chip)chip.addEventListener('click',function(){go(true);});
+  document.addEventListener('keydown',function(e){
+    var t=e.target;if(t&&(/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)||t.isContentEditable))return;
+    if(e.ctrlKey||e.metaKey||e.altKey)return;
+    if(e.key==='`'){if(!window.EPHack)L().then(function(){EPHack.openConsole();});return;}
+    if(e.key.length===1){buf=(buf+e.key.toLowerCase()).slice(-4);if(/(hack|root|sudo)$/.test(buf)){buf='';go(false);}}
+    kk.push(e.key.length===1?e.key.toLowerCase():e.key);kk=kk.slice(-K.length);
+    if(kk.join()===K.join()){kk=[];go(false);}
+  });
+  if(location.hash==='#root'||/[?&]mode=hack\b/.test(location.search))go(false);
+  console.log('%c> looking for something? try typing  hack','color:#00e5ff;background:#000;padding:6px 10px;font:14px monospace');
+})();
 </script>
 </body>
 </html>

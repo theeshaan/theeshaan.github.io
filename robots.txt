@@ -1,0 +1,4 @@
+User-agent: *
+# EP{4ppe4r4nc3s_4r3_d3c3pt1v3_51b69b4f0cb6fc0c44ffd2d4}
+# nothing to see here.
+Disallow: /assets/peaceful_cottage.jpg

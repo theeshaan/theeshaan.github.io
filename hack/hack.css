@@ -1,0 +1,26 @@
+body.ep-glitch{animation:epg .1s steps(2) infinite}
+@keyframes epg{0%{transform:translate(2px,0);filter:hue-rotate(90deg) saturate(3)}50%{transform:translate(-3px,1px);filter:invert(1) hue-rotate(180deg)}100%{transform:translate(1px,-1px);filter:none}}
+@media(prefers-reduced-motion:reduce){body.ep-glitch{animation:none;filter:hue-rotate(90deg)}}
+body.ep-hack{--bg:#000;--surface:#03070b;--border:#073242;--accent:#00e5ff;--accent2:#2d7bff;--text:#bdeeff;--muted:#4a8799}
+body.ep-hack,body.ep-hack *{font-family:ui-monospace,'DM Mono','Share Tech Mono',Menlo,Consolas,monospace!important}
+body.ep-hack h1,body.ep-hack h2,body.ep-hack .nav-logo{text-shadow:0 0 8px var(--accent)}
+body.ep-hack::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;background:repeating-linear-gradient(0deg,rgba(0,229,255,.035) 0 1px,transparent 1px 3px)}
+.ep-term{display:none;position:fixed;left:0;right:0;bottom:0;height:40vh;z-index:9999;flex-direction:column;background:rgba(0,0,0,.94);border-top:1px solid #00e5ff;box-shadow:0 -4px 24px rgba(0,229,255,.25);color:#bdeeff;font-size:13px}
+.ep-term.open{display:flex}
+.ep-out{flex:1;overflow:auto;padding:10px 14px;white-space:pre-wrap;word-break:break-word}
+.ep-row{display:flex;gap:8px;padding:8px 14px;border-top:1px solid #073242}
+.ep-ps{color:#00e5ff}
+.ep-in{flex:1;background:none;border:0;outline:0;color:#fff;font-size:16px}
+.ep-cmd{color:#6fd8ee}.ep-ok{color:#4dffb0}.ep-err{color:#ff5c7a}
+.ep-hud{display:none;position:fixed;top:12px;right:12px;z-index:9999;gap:6px;align-items:center;background:#000;border:1px solid #00e5ff;padding:6px 8px;font-size:12px;color:#00e5ff}
+body.ep-hack .ep-hud{display:flex}
+.ep-btn{background:none;border:1px solid #00e5ff;color:#00e5ff;padding:3px 8px;font-size:12px;cursor:pointer}
+.ep-btn:hover{background:#00e5ff;color:#000}
+.ep-modal{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.8)}
+.ep-box{background:#000;border:1px solid #00e5ff;box-shadow:0 0 24px rgba(0,229,255,.35);padding:20px;max-width:min(92vw,460px);width:100%;color:#bdeeff;font-size:14px}
+.ep-box h3{margin:0 0 12px;color:#00e5ff}
+.ep-box input{width:100%;box-sizing:border-box;margin:4px 0 12px;padding:8px;background:#03070b;border:1px solid #073242;color:#fff;font-size:16px}
+.ep-tabs{display:flex;gap:6px;margin-bottom:10px}
+.ep-tab.on{background:#00e5ff;color:#000}
+.ep-box ol{margin:0;padding-left:22px;max-height:40vh;overflow:auto}
+@media(max-width:600px){.ep-term{height:52vh}.ep-hud{top:auto;bottom:calc(52vh + 8px)}}
